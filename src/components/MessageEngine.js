@@ -1,10 +1,10 @@
 "use client";
-import { useContext } from "react";
-import { GameContext } from "./ContextProvider";
+
+import { useGame } from "./ContextProvider";
 import MessageEngineButton from "./ButtonMessageEngine";
 
 export default function MessageEngine() {
-  const { roundNum } = useContext(GameContext);
+  const { roundNum } = useGame();
 
   const message = [
     "Press to start Round 1.",

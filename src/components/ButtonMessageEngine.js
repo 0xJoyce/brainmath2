@@ -1,6 +1,6 @@
 "use client";
 import { useContext } from "react";
-import { GameContext } from "./ContextProvider";
+import { GameContext } from "./ContextProvider"; //Fix to useGame().
 import { useRouter } from "next/navigation";
 
 export default function MessageEngineButton() {

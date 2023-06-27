@@ -7,12 +7,13 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Brain Math Game",
+  title: "Cool game",
   description: "Fun game to challenge your friends with.",
+  ///Can add image here.
 };
 
 export default function RootLayout({ children }) {
-  //Do I need "children: React.ReactNode"
+  //Do I need "children: React.ReactNode"  That is a typescript thing.
   return (
     <html lang="en">
       <body className={inter.className}>
@@ -27,3 +28,5 @@ export default function RootLayout({ children }) {
     </html>
   );
 }
+
+// <GameContext.Provider></GameContext.Provider>

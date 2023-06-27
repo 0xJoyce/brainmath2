@@ -1,7 +1,7 @@
 "use client";
 
-import { useContext, useState } from "react";
-import { GameContext } from "./ContextProvider";
+import { useState } from "react";
+import { useGame } from "./ContextProvider"; //Everywhere i used GameContext, I can use useGame because that provides initial value.
 
 export default function GameEngine() {
   // ***These are the game play values to be changed daily.***//
@@ -17,7 +17,7 @@ export default function GameEngine() {
     updateGameActive,
     updateRoundNum,
     updateScores,
-  } = useContext(GameContext);
+  } = useGame();
 
   const [currentNum, setNum] = useState(startNum);
   const [totalClicks, setClicks] = useState(0);
