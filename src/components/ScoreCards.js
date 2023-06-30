@@ -1,9 +1,8 @@
 "use client";
-import { useContext, useState } from "react";
-import { GameContext } from "./ContextProvider";
+import { useGame } from "./ContextProvider";
 
 export default function ScoreCards() {
-  const { scoreArray } = useContext(GameContext);
+  const { scoreArray } = useGame();
 
   //   const scoresHere = [10, 2, 3];
 

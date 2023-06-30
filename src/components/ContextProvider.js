@@ -11,13 +11,14 @@ const initialGameContext = {
   updateScores: (totalClicks) => {},
 };
 
-export const GameContext = createContext(initialGameContext); //Why curly braces?
+export const GameContext = createContext(initialGameContext); //Why curly braces?  Curly braces becuase the initial state is an object.
 
 export const useGame = () => useContext(GameContext);
 
 export default function ContextProvider({ children }) {
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
+
   const [scoreArray, setScoreArray] = useState(initialGameContext.scoreArray);
 
   function updateGameActive() {
@@ -26,7 +27,8 @@ export default function ContextProvider({ children }) {
 
   function updateRoundNum() {
     setRoundNum((curr) => {
-      return curr + 1;
+      const newRoundNum = curr + 1;
+      return newRoundNum;
     });
   }
 

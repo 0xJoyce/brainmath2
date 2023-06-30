@@ -1,6 +1,6 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import ContextProvider, { GameContext } from "@/components/ContextProvider";
+import ContextProvider, { useGame } from "@/components/ContextProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 

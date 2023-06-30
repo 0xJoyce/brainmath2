@@ -10,14 +10,8 @@ export default function GameEngine() {
   const addIncrement = 5;
   const minusIncrement = 2;
   ////////////////////////////////////////////////////////
-  const {
-    gameActive,
-    roundNum,
-    scoreArray,
-    updateGameActive,
-    updateRoundNum,
-    updateScores,
-  } = useGame();
+  const { roundNum, updateGameActive, updateRoundNum, updateScores } =
+    useGame();
 
   const [currentNum, setNum] = useState(startNum);
   const [totalClicks, setClicks] = useState(0);
