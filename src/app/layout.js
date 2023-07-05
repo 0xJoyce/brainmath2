@@ -7,8 +7,9 @@ import Footer from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Cool game",
-  description: "Fun game to challenge your friends with.",
+  title: "Math Par-Tee",
+  description:
+    "A math puzzle that is like golf.  Solve it with the fewest amount of steps.",
   ///Can add image here.
 };
 

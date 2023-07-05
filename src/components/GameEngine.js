@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useGame } from "./ContextProvider"; //Everywhere i used GameContext, I can use useGame because that provides initial value.
 
 export default function GameEngine() {
@@ -15,6 +15,16 @@ export default function GameEngine() {
 
   const [currentNum, setNum] = useState(startNum);
   const [totalClicks, setClicks] = useState(0);
+
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoaded(true);
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   function increaseNum() {
     const afterAddNum = currentNum + addIncrement;
@@ -44,6 +54,10 @@ export default function GameEngine() {
       setClicks(0);
       setNum(startNum);
     }
+  }
+
+  if (!isLoaded) {
+    return null;
   }
 
   return (
