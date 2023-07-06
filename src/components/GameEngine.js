@@ -2,14 +2,15 @@
 
 import { useState, useEffect } from "react";
 import { useGame } from "./ContextProvider";
-import { createClient } from "@supabase/supabase-js";
+
+// import {GameParameter} from "./GameParameter"
 
 export default function GameEngine() {
   // ***These are the game play values to be changed daily.***//
   const winNum = 20;
   const startNum = 10;
-  const addIncrement = 5;
-  const minusIncrement = 2;
+  const increment = 5;
+  const decrement = 2;
   ////////////////////////////////////////////////////////
   const { roundNum, updateGameActive, updateRoundNum, updateScores } =
     useGame();
@@ -28,7 +29,7 @@ export default function GameEngine() {
   }, []);
 
   function increaseNum() {
-    const afterAddNum = currentNum + addIncrement;
+    const afterAddNum = currentNum + increment;
     setNum(afterAddNum);
     setClicks((curr) => {
       return curr + 1;
@@ -43,7 +44,7 @@ export default function GameEngine() {
   }
 
   function decreaseNum() {
-    const afterMinusNum = currentNum - minusIncrement;
+    const afterMinusNum = currentNum - decrement;
     setNum(afterMinusNum);
     setClicks((curr) => {
       return curr + 1;

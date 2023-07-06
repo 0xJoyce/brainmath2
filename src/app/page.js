@@ -8,17 +8,26 @@ async function getData() {
     process.env.SUPABASE_ANON_KEY
   );
 
-  const gameParameters = await supabase
-    .from("daily_game_parameter")
-    .select("*");
+  // const gameParameters = await supabase
+  //   .from("game_parameter")
+  //   .select("*");
 
-  console.log(gameParameters.data);
-  return gameParameters.data;
+  const { data, error } = await supabase.from("game_parameter").select("*"); //Chris:  how do i prevent cacheing.  I used ctrl+shirt+r
+
+  if (error) {
+    console.error("Error: ", error);
+  } else {
+    console.log(data);
+    return data;
+  }
+
+  // console.log(gameParameters.data);
+  // return gameParameters.data;
 }
 
 export default async function HomePage() {
   const data = await getData();
-  console.log(data);
+
   let date = new Date().toLocaleDateString();
 
   return (
@@ -32,7 +41,14 @@ export default async function HomePage() {
           <h1>You figure out what the operators do.</h1>
           <h1>You get 3 rounds to get your best score!</h1>
           <h1>A new game every day.</h1>
-          <h1>{gameParameters}</h1>
+          <div>
+            {data &&
+              data.map((item, index) => (
+                <h1
+                  key={index}
+                >{`id: ${item.id}, win_num: ${item.win_num}, start_num: ${item.start_num}`}</h1>
+              ))}
+          </div>
         </div>
 
         <HomePageButton />
