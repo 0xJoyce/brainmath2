@@ -32,6 +32,7 @@ export default async function HomePage() {
           <h1>You figure out what the operators do.</h1>
           <h1>You get 3 rounds to get your best score!</h1>
           <h1>A new game every day.</h1>
+          <h1>{gameParameters}</h1>
         </div>
 
         <HomePageButton />
