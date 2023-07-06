@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useGame } from "./ContextProvider"; //Everywhere i used GameContext, I can use useGame because that provides initial value.
+import { useGame } from "./ContextProvider";
+import { createClient } from "@supabase/supabase-js";
 
 export default function GameEngine() {
   // ***These are the game play values to be changed daily.***//
