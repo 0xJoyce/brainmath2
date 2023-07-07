@@ -3,7 +3,10 @@
 import { createClient } from "@supabase/supabase-js";
 import { useContext, createContext, useState, useEffect } from "react";
 
-export const TodayParameter = createContext({}); //What should initial GameParameter be?
+export const TodayParameter = createContext({
+  todayParameter: null,
+  loading: true,
+});
 
 export const useGameParameter = () => useContext(TodayParameter); //Note: useGameParameter is a function that needs to be invoked.
 
