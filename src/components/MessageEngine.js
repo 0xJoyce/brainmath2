@@ -35,7 +35,11 @@ export default function MessageEngine() {
       <div>
         <h1 className="mb-10 text-3xl">{message[roundNum]}</h1>
         <MessageEngineButton />
-        WinNum is {todayParameter.win_num}
+        <div>
+          WinNum is {todayParameter.win_num}
+          {/* This is to test that GameParameter
+        component is fetching from Supabase successfully. */}
+        </div>
       </div>
     </div>
   );

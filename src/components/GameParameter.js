@@ -3,9 +3,9 @@
 import { createClient } from "@supabase/supabase-js";
 import { useContext, createContext, useState, useEffect } from "react";
 
-export const TodayParameter = createContext({}); //Why is TodayParameter capitalized? //What should initial GameParameter be?
+export const TodayParameter = createContext({}); //What should initial GameParameter be?
 
-export const useGameParameter = () => useContext(TodayParameter); //useGameParameter is a function that needs to be invoked.
+export const useGameParameter = () => useContext(TodayParameter); //Note: useGameParameter is a function that needs to be invoked.
 
 async function getData() {
   const supabase = createClient(
@@ -28,20 +28,9 @@ async function getData() {
     console.error("Error: ", error);
   } else {
     console.log(data);
-    return data;
+    return data; //data is an object
   }
 }
-
-// export default async function GameParameter({ children }) {
-//   const data = await getData();
-//   let [todayParameter] = data; //todayParameter is an object, needs deconstruction later.
-
-//   return (
-//     <TodayParameter.Provider value={todayParameter}>
-//       {children}
-//     </TodayParameter.Provider>
-//   );
-// }
 
 //ChatGPT said that it shouldn't be an async function and suggested this instead.  Need to talk thorugh this with Chris.
 export default function GameParameter({ children }) {
@@ -61,3 +50,15 @@ export default function GameParameter({ children }) {
     </TodayParameter.Provider>
   );
 }
+
+//This was the code before I took the Chat useEffect suggestion
+// export default async function GameParameter({ children }) {
+//   const data = await getData();
+//   let [todayParameter] = data; //todayParameter is an object, needs deconstruction later.
+
+//   return (
+//     <TodayParameter.Provider value={todayParameter}>
+//       {children}
+//     </TodayParameter.Provider>
+//   );
+// }

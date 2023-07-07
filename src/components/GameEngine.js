@@ -1,5 +1,3 @@
-//Chris - I tried to put the supabase stuff here, but it broke.  It gets stuck at MessageEngine and when you click the button there to play it never goes to the GameEngine.  I think it is the asynchronous function part that is breaking it.  Why does it do that?
-
 "use client";
 
 import { useState, useEffect } from "react";
@@ -7,12 +5,11 @@ import { useGame } from "./ContextProviderGame";
 import { useGameParameter } from "./GameParameter";
 
 export default function GameEngine() {
-  const { todayParameter, loading } = useGameParameter();
-  // const { win_num, start_num, increment, decrement } = todayParameter || {};
   // const winNum = process.env.winNum;
   // const startNum = process.env.startNum;
   // const increment = process.env.increment;
   // const decrement = process.env.decrement;
+  const { todayParameter, loading } = useGameParameter();
 
   const winNum = todayParameter.win_num;
   const startNum = todayParameter.start_num;
@@ -22,7 +19,7 @@ export default function GameEngine() {
   const { roundNum, updateGameActive, updateRoundNum, updateScores } =
     useGame();
 
-  const [currentNum, setNum] = useState(startNum); //Per Chat, due to async nature, This used to be start_Num, but changed to 0.
+  const [currentNum, setNum] = useState(0); //Per Chat, due to async nature, The initial state used to be start_Num, but changed to 0.
   const [totalClicks, setClicks] = useState(0);
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -35,46 +32,46 @@ export default function GameEngine() {
     return () => clearTimeout(timer);
   }, []);
 
-  //This was a Chat suggestion on updating startnum when actually loaded from Supabase.
-  // useEffect(() => {
-  //   if (startNum) {
-  //     setNum(startNum);
-  //   }
-  // }, [startNum]);
+  //This was a Chat suggestion on updating startNum when actually loaded from Supabase.
+  useEffect(() => {
+    if (startNum) {
+      setNum(startNum);
+    }
+  }, [startNum]);
 
   function increaseNum() {
-    // if (addNum && winNum) {
-    const afterAddNum = currentNum + addNum;
-    setNum(afterAddNum);
-    setClicks((curr) => {
-      return curr + 1;
-    });
-    if (afterAddNum === winNum) {
-      updateRoundNum();
-      updateScores(totalClicks);
-      updateGameActive();
-      setClicks(0);
-      setNum(startNum);
+    if (addNum && winNum) {
+      const afterAddNum = currentNum + addNum;
+      setNum(afterAddNum);
+      setClicks((curr) => {
+        return curr + 1;
+      });
+      if (afterAddNum === winNum) {
+        updateRoundNum();
+        updateScores(totalClicks);
+        updateGameActive();
+        setClicks(0);
+        setNum(startNum);
+      }
     }
   }
-  // }
 
   function decreaseNum() {
-    // if (minusNum && winNum) {
-    const afterMinusNum = currentNum - minusNum;
-    setNum(afterMinusNum);
-    setClicks((curr) => {
-      return curr + 1;
-    });
-    if (afterMinusNum === winNum) {
-      updateRoundNum();
-      updateScores(totalClicks);
-      updateGameActive();
-      setClicks(0);
-      setNum(startNum);
+    if (minusNum && winNum) {
+      const afterMinusNum = currentNum - minusNum;
+      setNum(afterMinusNum);
+      setClicks((curr) => {
+        return curr + 1;
+      });
+      if (afterMinusNum === winNum) {
+        updateRoundNum();
+        updateScores(totalClicks);
+        updateGameActive();
+        setClicks(0);
+        setNum(startNum);
+      }
     }
   }
-  // }
 
   if (loading || !isLoaded) {
     return null;
