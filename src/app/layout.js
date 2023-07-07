@@ -22,9 +22,9 @@ export default function RootLayout({ children }) {
         <main className="text-center w-screen p-0 m-0 bg-yellow-50 text-black font-sans">
           <ContextProviderGame>
             <GameParameter>
-              {" "}
               <Navbar />
-              {children} <Footer />
+              {children}
+              <Footer />
             </GameParameter>
           </ContextProviderGame>
         </main>

@@ -22,12 +22,12 @@ async function getData() {
   const { data, error } = await supabase
     .from("game_parameter")
     .select("*")
-    .eq("date", formattedDate);
+    .eq("date", formattedDate)
+    .single();
 
   if (error) {
     console.error("Error: ", error);
   } else {
-    console.log(data);
     return data; //data is an object
   }
 }
@@ -38,10 +38,13 @@ export default function GameParameter({ children }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getData().then((data) => {
-      let [todayParameter] = data;
-      setTodayParameter(todayParameter);
-    });
+    getData()
+      .then((data) => {
+        setTodayParameter(data);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -50,15 +53,3 @@ export default function GameParameter({ children }) {
     </TodayParameter.Provider>
   );
 }
-
-//This was the code before I took the Chat useEffect suggestion
-// export default async function GameParameter({ children }) {
-//   const data = await getData();
-//   let [todayParameter] = data; //todayParameter is an object, needs deconstruction later.
-
-//   return (
-//     <TodayParameter.Provider value={todayParameter}>
-//       {children}
-//     </TodayParameter.Provider>
-//   );
-// }
