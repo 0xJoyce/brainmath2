@@ -1,10 +1,12 @@
 "use client";
-import { useGame } from "./ContextProvider";
+import { useGame } from "./ContextProviderGame";
 import MessageEngineButton from "./ButtonMessageEngine";
 import { useState, useEffect } from "react";
+import { useGameParameter } from "./GameParameter";
 
 export default function MessageEngine() {
   const { roundNum } = useGame();
+  const { todayParameter } = useGameParameter();
 
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -32,8 +34,8 @@ export default function MessageEngine() {
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 h-screen overflow-auto flex items-center justify-center">
       <div>
         <h1 className="mb-10 text-3xl">{message[roundNum]}</h1>
-
         <MessageEngineButton />
+        WinNum is {todayParameter.win_num}
       </div>
     </div>
   );

@@ -1,21 +1,28 @@
+//Chris - I tried to put the supabase stuff here, but it broke.  It gets stuck at MessageEngine and when you click the button there to play it never goes to the GameEngine.  I think it is the asynchronous function part that is breaking it.  Why does it do that?
+
 "use client";
 
 import { useState, useEffect } from "react";
-import { useGame } from "./ContextProvider";
-
-// import {GameParameter} from "./GameParameter"
+import { useGame } from "./ContextProviderGame";
+import { useGameParameter } from "./GameParameter";
 
 export default function GameEngine() {
-  // ***These are the game play values to be changed daily.***//
-  const winNum = 20;
-  const startNum = 10;
-  const increment = 5;
-  const decrement = 2;
-  ////////////////////////////////////////////////////////
+  const { todayParameter, loading } = useGameParameter();
+  // const { win_num, start_num, increment, decrement } = todayParameter || {};
+  // const winNum = process.env.winNum;
+  // const startNum = process.env.startNum;
+  // const increment = process.env.increment;
+  // const decrement = process.env.decrement;
+
+  const winNum = todayParameter.win_num;
+  const startNum = todayParameter.start_num;
+  const addNum = todayParameter.increment;
+  const minusNum = todayParameter.decrement;
+
   const { roundNum, updateGameActive, updateRoundNum, updateScores } =
     useGame();
 
-  const [currentNum, setNum] = useState(startNum);
+  const [currentNum, setNum] = useState(startNum); //Per Chat, due to async nature, This used to be start_Num, but changed to 0.
   const [totalClicks, setClicks] = useState(0);
 
   const [isLoaded, setIsLoaded] = useState(false);
@@ -28,8 +35,16 @@ export default function GameEngine() {
     return () => clearTimeout(timer);
   }, []);
 
+  //This was a Chat suggestion on updating startnum when actually loaded from Supabase.
+  // useEffect(() => {
+  //   if (startNum) {
+  //     setNum(startNum);
+  //   }
+  // }, [startNum]);
+
   function increaseNum() {
-    const afterAddNum = currentNum + increment;
+    // if (addNum && winNum) {
+    const afterAddNum = currentNum + addNum;
     setNum(afterAddNum);
     setClicks((curr) => {
       return curr + 1;
@@ -42,9 +57,11 @@ export default function GameEngine() {
       setNum(startNum);
     }
   }
+  // }
 
   function decreaseNum() {
-    const afterMinusNum = currentNum - decrement;
+    // if (minusNum && winNum) {
+    const afterMinusNum = currentNum - minusNum;
     setNum(afterMinusNum);
     setClicks((curr) => {
       return curr + 1;
@@ -57,8 +74,9 @@ export default function GameEngine() {
       setNum(startNum);
     }
   }
+  // }
 
-  if (!isLoaded) {
+  if (loading || !isLoaded) {
     return null;
   }
 

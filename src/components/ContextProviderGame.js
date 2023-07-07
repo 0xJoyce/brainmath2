@@ -15,7 +15,7 @@ export const GameContext = createContext(initialGameContext); //Why curly braces
 
 export const useGame = () => useContext(GameContext);
 
-export default function ContextProvider({ children }) {
+export default function ContextProviderGame({ children }) {
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
 

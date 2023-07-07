@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import ContextProvider, { useGame } from "@/components/ContextProvider";
+import ContextProviderGame, { useGame } from "@/components/ContextProviderGame";
+import GameParameter, { useGameParameter } from "@/components/GameParameter";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -19,11 +20,13 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <main className="text-center w-screen p-0 m-0 bg-yellow-50 text-black font-sans">
-          <ContextProvider>
-            {" "}
-            <Navbar />
-            {children} <Footer />
-          </ContextProvider>
+          <ContextProviderGame>
+            <GameParameter>
+              {" "}
+              <Navbar />
+              {children} <Footer />
+            </GameParameter>
+          </ContextProviderGame>
         </main>
       </body>
     </html>

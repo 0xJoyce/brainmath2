@@ -1,6 +1,6 @@
 "use client";
 
-import { useGame } from "./ContextProvider";
+import { useGame } from "./ContextProviderGame";
 import GameEngine from "./GameEngine";
 import MessageEngine from "./MessageEngine";
 
