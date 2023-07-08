@@ -1,32 +1,21 @@
 "use client";
+
 import { useGame } from "./ContextProviderGame";
 import MessageEngineButton from "./ButtonMessageEngine";
-import { useState, useEffect } from "react";
 import { useGameParameter } from "./GameParameter";
+
+const message = [
+  "Ready for Round 1?",
+  "Can you do it in fewer steps?  Let's try again.",
+  "You're doing great.  Let's make this third try your best one!",
+  "How did you do?",
+];
 
 export default function MessageEngine() {
   const { roundNum } = useGame();
   const { todayParameter } = useGameParameter();
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 500); // this will delay the rendering of the component by .5 second
-
-    // This function will run when the component unmounts
-    return () => clearTimeout(timer);
-  }, []);
-
-  const message = [
-    "Ready for Round 1?",
-    "Can you do it in fewer steps?  Let's try again.",
-    "You're doing great.  Let's make this third try your best one!",
-    "How did you do?",
-  ];
-
-  if (!isLoaded) {
+  if (todayParameter == null) {
     return null; // or return a loading spinner, or any placeholder component
   }
 

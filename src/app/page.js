@@ -1,29 +1,6 @@
-// import { createClient } from "@supabase/supabase-js";
 import HomePageButton from "@/components/ButtonHomePage";
-import { TodayParameter } from "@/components/GameParameter";
-
-//Must use exactly "getData()" "
-// async function getData() {
-//   const supabase = createClient(
-//     process.env.SUPABASE_URL,
-//     process.env.SUPABASE_ANON_KEY
-//   );
-
-//   const { data, error } = await supabase
-//     .from("game_parameter_test")
-//     .select("*"); //Chris:  how do i prevent cacheing.  I used ctrl+shirt+r
-
-//   if (error) {
-//     console.error("Error: ", error);
-//   } else {
-//     console.log(data);
-//     return data;
-//   }
-// }
 
 export default async function HomePage() {
-  // const data = await getData();
-
   let date = new Date().toLocaleDateString();
 
   return (
