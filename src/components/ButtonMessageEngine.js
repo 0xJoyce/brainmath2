@@ -1,6 +1,6 @@
 "use client";
 
-import { useGame } from "./ContextProvider"; //Fix to useGame().
+import { useGame } from "./ContextProviderGame";
 import Link from "next/link";
 
 export default function MessageEngineButton() {

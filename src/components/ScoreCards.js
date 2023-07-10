@@ -1,5 +1,5 @@
 "use client";
-import { useGame } from "./ContextProvider";
+import { useGame } from "./ContextProviderGame";
 
 export default function ScoreCards() {
   const { scoreArray } = useGame();

@@ -1,62 +1,66 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useGame } from "./ContextProvider"; //Everywhere i used GameContext, I can use useGame because that provides initial value.
+
+import { useGame } from "./ContextProviderGame";
+import { useGameParameter } from "./GameParameter";
 
 export default function GameEngine() {
-  // ***These are the game play values to be changed daily.***//
-  const winNum = 20;
-  const startNum = 10;
-  const addIncrement = 5;
-  const minusIncrement = 2;
-  ////////////////////////////////////////////////////////
+  const { todayParameter } = useGameParameter();
+
+  const winNum = Number(todayParameter?.win_num ?? 20);
+  const startNum = Number(todayParameter?.start_num ?? 10);
+  const addNum = Number(todayParameter?.increment ?? 5);
+  const minusNum = Number(todayParameter?.decrement ?? 2);
+
   const { roundNum, updateGameActive, updateRoundNum, updateScores } =
     useGame();
 
-  const [currentNum, setNum] = useState(startNum);
+  const [currentNum, setNum] = useState(0); //Per Chat, due to async nature, The initial state used to be start_Num, but changed to 0.
   const [totalClicks, setClicks] = useState(0);
 
-  const [isLoaded, setIsLoaded] = useState(false);
-
+  //This was a Chat suggestion on updating startNum when actually loaded from Supabase.
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, []);
+    if (startNum) {
+      setNum(startNum);
+    }
+  }, [startNum]);
 
   function increaseNum() {
-    const afterAddNum = currentNum + addIncrement;
-    setNum(afterAddNum);
-    setClicks((curr) => {
-      return curr + 1;
-    });
-    if (afterAddNum === winNum) {
-      updateRoundNum();
-      updateScores(totalClicks);
-      updateGameActive();
-      setClicks(0);
-      setNum(startNum);
+    if (addNum && winNum) {
+      const afterAddNum = currentNum + addNum;
+      setNum(afterAddNum);
+      setClicks((curr) => {
+        return curr + 1;
+      });
+      if (afterAddNum === winNum) {
+        updateRoundNum();
+        updateScores(totalClicks);
+        updateGameActive();
+        setClicks(0);
+        setNum(startNum);
+      }
     }
   }
 
   function decreaseNum() {
-    const afterMinusNum = currentNum - minusIncrement;
-    setNum(afterMinusNum);
-    setClicks((curr) => {
-      return curr + 1;
-    });
-    if (afterMinusNum === winNum) {
-      updateRoundNum();
-      updateScores(totalClicks);
-      updateGameActive();
-      setClicks(0);
-      setNum(startNum);
+    if (minusNum && winNum) {
+      const afterMinusNum = currentNum - minusNum;
+      setNum(afterMinusNum);
+      setClicks((curr) => {
+        return curr + 1;
+      });
+      if (afterMinusNum === winNum) {
+        updateRoundNum();
+        updateScores(totalClicks);
+        updateGameActive();
+        setClicks(0);
+        setNum(startNum);
+      }
     }
   }
 
-  if (!isLoaded) {
+  if (todayParameter == null) {
     return null;
   }
 
