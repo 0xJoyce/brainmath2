@@ -4,8 +4,8 @@ import GameParameter from "@/components/GameParameter";
 
 async function getData() {
   const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_ANON_KEY
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   );
 
   const currentDate = new Date();
@@ -22,7 +22,7 @@ async function getData() {
 
   if (error) {
     console.error("Error: ", error);
-    return nulll;
+    return null; //If this is null, shouldn't it provide the default values instead?
   } else {
     return data;
   }

@@ -10,26 +10,26 @@ export default function Navbar() {
         </h2>
         <div className="sm:ml-6  sm:space-x-8">
           {/* Current: "border-indigo-500 text-gray-900", Default: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700" */}
-          <a
+          <Link
             href="#"
             className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-900"
           >
             Leaderboard
-          </a>
-          <a
-            href="../"
+          </Link>
+          <Link
+            href="/"
             className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
           >
             How To Play
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            href="/auth/login"
             className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
           >
             Log In
-          </a>
+          </Link>
           <Link
-            href="../game"
+            href="/game"
             className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
           >
             Play now!
