@@ -15,7 +15,7 @@ export default function AuthForm() {
       theme="dark"
       showLinks={false}
       providers={["google"]}
-      redirectTo="https://fjruidbgtaybvwyatmeb.supabase.co/auth/v1/callback"
+      redirectTo="http://localhost:3000/auth/callback"
     />
   );
 }
