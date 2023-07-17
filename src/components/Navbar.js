@@ -28,13 +28,15 @@ export default function Navbar() {
           >
             Log In
           </Link>
+          {/* {  This fix was done by Mat.  But, it turns out it was not needed when I change the POST to GET method becauase Link components automatically do Get requests apparently.  Keenan pointed this out to me. */}
+          {/*             
           <div>
             <form action="/auth/signout" method="post">
               <button className="button block" type="submit">
                 Sign out
               </button>
             </form>
-          </div>
+          </div> */}
           <Link
             href="/auth/signout"
             className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
