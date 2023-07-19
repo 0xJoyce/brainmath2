@@ -6,6 +6,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function AuthForm() {
   const supabase = createClientComponentClient();
+  console.log("Accessing AuthForm component.");
 
   return (
     <Auth

@@ -1,6 +1,7 @@
 import HomePageButton from "@/components/ButtonHomePage";
 
 export default async function HomePage() {
+  console.log("Console is working on HomePage.");
   let date = new Date().toLocaleDateString();
 
   return (
