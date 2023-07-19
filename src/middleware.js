@@ -1,3 +1,5 @@
+//If your directory has a /src, the middleware.js does NOT go into the root.  Instead, it needs to go into /src.
+
 import { createMiddlewareClient } from "@supabase/auth-helpers-nextjs";
 import { NextResponse } from "next/server";
 
@@ -7,12 +9,11 @@ export async function middleware(req) {
   // console.log(res);
   const supabase = createMiddlewareClient({ req, res });
   const data = await supabase.auth.getSession();
-  const session = data.data.session; /// I fixed this all by myself!! whee!
+  const session = data.data.session; /// I fixed this all by myself!! whee!  Is there a better way?
 
   // console.log(session);
 
   if (session == null && req.nextUrl.pathname !== "/") {
-    // I am so proud of me!!!
     return NextResponse.redirect(new URL("/", req.url));
   }
 
@@ -20,5 +21,5 @@ export async function middleware(req) {
 }
 
 export const config = {
-  matcher: ["/game", "/game/scores", "/test"],
+  matcher: ["/game", "/game/scores", "/profile"],
 };
