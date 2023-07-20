@@ -15,7 +15,7 @@ export default function MessageEngineButton() {
     "See scores",
   ];
 
-  function supabaseConnect() {
+  function SupabaseConnect() {
     console.log(
       "Accessing supabaseConnect function inside ButtonMessageEngine component."
     );
@@ -31,7 +31,7 @@ export default function MessageEngineButton() {
     }, []);
     return null;
   }
-  supabaseConnect();
+  SupabaseConnect();
 
   function handleClick(event) {
     console.log(
