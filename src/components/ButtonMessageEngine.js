@@ -1,10 +1,12 @@
 "use client";
 
+import { supabase } from "../../lib/supabase";
 import { useGame } from "./ContextProviderGame";
 import Link from "next/link";
+import { useEffect } from "react";
 
 export default function MessageEngineButton() {
-  const { updateGameActive, roundNum } = useGame();
+  const { updateGameActive, roundNum, scoreArray } = useGame();
 
   const buttonText = [
     "Let's Play",
@@ -13,23 +15,36 @@ export default function MessageEngineButton() {
     "See scores",
   ];
 
+  function supabaseConnect() {
+    console.log(
+      "Accessing supabaseConnect function inside ButtonMessageEngine component."
+    );
+    useEffect(() => {
+      async function connectToSupabase() {
+        const supabaseClient = await supabase;
+        console.log(supabaseClient); // For testing
+      }
+      connectToSupabase();
+      console.log(
+        "Successful Supabase connection at supabaseConnect function."
+      ); //
+    }, []);
+    return null;
+  }
+  supabaseConnect();
+
   function handleClick(event) {
+    console.log(
+      "I am inside handleClick function of the ButtonMessageEngine component."
+    );
     updateGameActive();
   }
 
   return (
     <div>
-    
-    {/* Note:
-        The following <Link> component marks the point where each of the three rounds are completed.
-        It is also the time when the score for each game have been updated to scoreArray and
-        useState has been refreshed to the next render, so that the array contains all three items 
-        (as opposed to just 2 of the 3 because useState stores the value somewhere and hasn't updated the state variable yet.) 
-        This is the right time to push the scores into Supabase after rounds 1 and 3.  See below for round 3.*/}
-     
       {roundNum < 3 ? (
         <Link
-          href="../game"
+          href="/game"
           className="rounded-full bg-lime-300 px-3 py-3.5 text-sm font-semibold
         text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
         hover:bg-gray-50"
@@ -38,15 +53,8 @@ export default function MessageEngineButton() {
           {buttonText[roundNum]}
         </Link>
       ) : (
-        
-        {/* Note:
-        The following <Link> component marks the point where all three rounds are completed (roundNum = 3).
-        It is also the time when not only all three scores have been updated to scoreArray, but the
-        useState has been refreshed to the next render, so that the array contains all three items (as opposed to just 2 of the 3 because useState stores the value somewhere and hasn't updated the state variable yet.) 
-        This is the right time to push the scores to Supabase subsequent to the final round 3.*/}
-
         <Link
-          href="../game/scores"
+          href="/game/scores" // PROBLEM: Doesn't go directly to /game/scores.  Flashes gameEngine.
           className="rounded-full bg-lime-300 px-3 py-3.5 text-sm font-semibold
         text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
         hover:bg-gray-50"
