@@ -1,3 +1,7 @@
+//Problem:  When this route is called, log out is successful but it doesn't rerender to go to the / route.
+//How do I fix this?  Right now, I have to actively hit refresh on the browser to
+//make it forget the info so that /profile can no longer be accessed.
+
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";

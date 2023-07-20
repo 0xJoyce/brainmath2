@@ -12,8 +12,13 @@ const message = [
 ];
 
 export default function MessageEngine() {
-  const { roundNum } = useGame();
+  const { roundNum, scoreArray, gameActive } = useGame();
   const { todayParameter } = useGameParameter();
+
+  console.log("Accessed MessageEngine component for roundNum = " + roundNum);
+  console.log(roundNum); // For testing.
+  console.log(scoreArray); // For testing.
+  console.log(gameActive); // For testing.
 
   if (todayParameter == null) {
     return null; // or return a loading spinner, or any placeholder component
@@ -24,11 +29,6 @@ export default function MessageEngine() {
       <div>
         <h1 className="mb-10 text-3xl">{message[roundNum]}</h1>
         <MessageEngineButton />
-        <div>
-          WinNum is {todayParameter.win_num}
-          {/* This is to test that GameParameter
-        component is fetching from Supabase successfully. */}
-        </div>
       </div>
     </div>
   );
