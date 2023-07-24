@@ -2,6 +2,7 @@
 import { useGame } from "./ContextProviderGame";
 
 export default function ScoreCards() {
+  console.log("Accessing ScoreCards component.");
   const { scoreArray } = useGame();
 
   //   const scoresHere = [10, 2, 3];

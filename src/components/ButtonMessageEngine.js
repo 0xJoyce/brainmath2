@@ -1,11 +1,15 @@
 "use client";
-
-import { supabase } from "../../lib/supabase";
 import { useGame } from "./ContextProviderGame";
 import Link from "next/link";
-import { useEffect } from "react";
+import { createClient } from "@supabase/supabase-js";
+
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
 
 export default function MessageEngineButton() {
+  console.log("Accessing MessageEngineButton component.");
   const { updateGameActive, roundNum, scoreArray } = useGame();
 
   const buttonText = [
@@ -15,23 +19,29 @@ export default function MessageEngineButton() {
     "See scores",
   ];
 
-  function SupabaseConnect() {
-    console.log(
-      "Accessing supabaseConnect function inside ButtonMessageEngine component."
-    );
-    useEffect(() => {
-      async function connectToSupabase() {
-        const supabaseClient = await supabase;
-        console.log(supabaseClient); // For testing
-      }
-      connectToSupabase();
-      console.log(
-        "Successful Supabase connection at supabaseConnect function."
-      ); //
-    }, []);
-    return null;
-  }
-  SupabaseConnect();
+  //Note: The following code was commented out because it caused an issue.
+  //The issue is that it created a react lazy component and I received this error:
+  //"Error: Element type is invalid. Received a promise that resolves to: [object Promise]. Lazy element type must resolve to a class or function."
+
+  // useEffect(() => {
+  //   console.log(
+  //     "Accessing supabaseConnect function in ButtonMessageEngine component."
+  //   );
+
+  //   const insertData = async () => {
+  //     try {
+  //       const { data, error } = await supabase
+  //         .from("test_table")
+  //         .insert([{ test_value: 123 }]);
+  //       if (error) console.log("Error inserting data:", error);
+  //       else console.log("Data inserted successfully:", data);
+  //     } catch (error) {
+  //       console.log("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   insertData();
+  // }, []);
 
   function handleClick(event) {
     console.log(

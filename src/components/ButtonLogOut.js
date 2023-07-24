@@ -3,8 +3,8 @@
 import { supabase } from "../../lib/supabase";
 import { useRouter } from "next/router";
 
-
 export default function LogoutButton() {
+  console.log("Accessing LogoutButton component.");
   const router = useRouter();
 
   async function handleLogout() {

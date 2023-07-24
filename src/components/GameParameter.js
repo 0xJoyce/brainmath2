@@ -9,6 +9,7 @@ export const TodayParameter = createContext({
 export const useGameParameter = () => useContext(TodayParameter); //Note: useGameParameter is a function that needs to be invoked.
 
 export default function GameParameter({ children, todayParameter }) {
+  console.log("Accessing GameParameter component.");
   return (
     <TodayParameter.Provider value={{ todayParameter }}>
       {children}

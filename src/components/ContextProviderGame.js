@@ -14,7 +14,8 @@
 
 "use client";
 
-import { useContext, createContext, useState } from "react";
+import { useContext, createContext, useEffect, useState } from "react";
+import { createClient } from "@supabase/supabase-js"; //Creates Supabase connection.  (Purposefully not using the one from lib yet.)
 
 const initialGameContext = {
   gameActive: false,
@@ -25,17 +26,50 @@ const initialGameContext = {
   updateScores: (totalClicks) => {},
 };
 
+export const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+);
+
 export const GameContext = createContext(initialGameContext); //Why curly braces?  Curly braces becuase the initial state is an object.
 
 export const useGame = () => useContext(GameContext);
 
 export default function ContextProviderGame({ children }) {
+  console.log("Accessed ContextProviderGame component.");
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
-
   const [scoreArray, setScoreArray] = useState(initialGameContext.scoreArray); // This goes away now that we use database?  Or should this be stored locally and then I push each item to Supabase?
 
-  console.log("Accessed ContextProviderGame component.");
+  useEffect(() => {
+    console.log("Accessing useEffect within ContextProviderGame component.");
+
+    const insertData = async () => {
+      if (roundNum >= 1) {
+        try {
+          const randomNum = Math.floor(Math.random() * 1000) + 1;
+          console.log("scoreArray is: " + scoreArray);
+          console.log(typeof scoreArray);
+          console.log("roundNum is: " + roundNum);
+
+          const { data, error } = await supabase.from("test_table").insert([
+            {
+              test_id: randomNum,
+              test_number: roundNum,
+              test_score: scoreArray[roundNum - 1],
+            },
+          ]); //What should I put for test_id so that Supabase auto creates number?
+          if (error) console.log("Error inserting data:", error);
+          else console.log("Data inserted successfully:", data);
+        } catch (error) {
+          console.log("Error fetching data:", error);
+        }
+      } else null;
+    };
+
+    insertData();
+  }, [roundNum]);
+
   function updateGameActive() {
     setGameActive((prevState) => !prevState);
   }

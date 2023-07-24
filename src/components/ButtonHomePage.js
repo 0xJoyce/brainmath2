@@ -3,6 +3,7 @@
 import Link from "next/link";
 
 export default function HomePageButton() {
+  console.log("Accessed HomePageButton component.");
   return (
     <div>
       <Link

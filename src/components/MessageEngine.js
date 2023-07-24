@@ -16,9 +16,6 @@ export default function MessageEngine() {
   const { todayParameter } = useGameParameter();
 
   console.log("Accessed MessageEngine component for roundNum = " + roundNum);
-  console.log(roundNum); // For testing.
-  console.log(scoreArray); // For testing.
-  console.log(gameActive); // For testing.
 
   if (todayParameter == null) {
     return null; // or return a loading spinner, or any placeholder component
