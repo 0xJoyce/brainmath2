@@ -47,14 +47,12 @@ export default function ContextProviderGame({ children }) {
     const insertData = async () => {
       if (roundNum >= 1) {
         try {
-          const randomNum = Math.floor(Math.random() * 1000) + 1;
           console.log("scoreArray is: " + scoreArray);
           console.log(typeof scoreArray);
           console.log("roundNum is: " + roundNum);
 
           const { data, error } = await supabase.from("test_table").insert([
             {
-              test_id: randomNum,
               test_number: roundNum,
               test_score: scoreArray[roundNum - 1],
             },
@@ -95,7 +93,7 @@ export default function ContextProviderGame({ children }) {
   const value = {
     gameActive,
     roundNum,
-    scoreArray, // This goes away?  Because info will come from database now.
+    scoreArray, // Get this from database instead? But this will be very slow?
     updateGameActive,
     updateRoundNum,
     updateScores,
