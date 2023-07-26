@@ -11,9 +11,31 @@ export async function middleware(req) {
   const data = await supabase.auth.getSession();
   const session = data.data.session; /// I fixed this all by myself!! whee!  Is there a better way?
 
-  // console.log(session);
+  if (supabase) {
+    console.log("Connection to Supabase successful.");
+  } else {
+    console.log("No Supabase connection.");
+  }
+
+  if (data) {
+    console.log("The data is: ");
+    console.log(data);
+  } else {
+    console.log("No data found.");
+  }
+
+  if (session) {
+    console.log("The session is: ");
+    console.log(session);
+    console.log("The user ID retrieved from session is: ");
+    const userID = session.user.id;
+    console.log(userID);
+  } else {
+    console.log("No session found.");
+  }
 
   if (session == null && req.nextUrl.pathname !== "/") {
+    console.log("Middleware redirected to home route.");
     return NextResponse.redirect(new URL("/", req.url));
   }
 
