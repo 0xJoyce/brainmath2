@@ -16,7 +16,7 @@ export const GameContext = createContext(initialGameContext); //Why curly braces
 
 export const useGame = () => useContext(GameContext);
 
-export default function ContextProviderGame({ children, user }) {
+export default function ContextProviderGame({ children, user, gameInfoNum }) {
   console.log("Accessed ContextProviderGame component.");
 
   const supabase = createClientComponentClient();
@@ -26,7 +26,9 @@ export default function ContextProviderGame({ children, user }) {
   const [scoreArray, setScoreArray] = useState(initialGameContext.scoreArray); // This goes away now that we use database?  Or should this be stored locally and then I push each item to Supabase?
 
   useEffect(() => {
-    console.log("Accessing useEffect within ContextProviderGame component.");
+    console.log(
+      "Accessing useEffect within ContextProviderGame component.  About to access insertData async function."
+    );
 
     const insertData = async () => {
       if (roundNum >= 1) {
@@ -34,13 +36,16 @@ export default function ContextProviderGame({ children, user }) {
           console.log("scoreArray is: " + scoreArray);
           console.log("roundNum is: " + roundNum);
 
-          const { data, error } = await supabase.from("test_table").insert([
-            {
-              test_number: roundNum,
-              test_score: scoreArray[roundNum - 1],
-              user: user.id,
-            },
-          ]);
+          const { data, error } = await supabase
+            .from("game_play_table")
+            .insert([
+              {
+                round_number: roundNum,
+                round_score: scoreArray[roundNum - 1],
+                user: user.id,
+                game_id: gameInfoNum,
+              },
+            ]);
           if (error) console.log("Error inserting data:", error);
           else console.log("Data inserted successfully:", data);
         } catch (error) {
@@ -78,6 +83,8 @@ export default function ContextProviderGame({ children, user }) {
     gameActive,
     roundNum,
     scoreArray, // Get this from database instead? But this will be very slow?
+    user,
+    gameInfoNum,
     updateGameActive,
     updateRoundNum,
     updateScores,

@@ -1,12 +1,7 @@
 "use client";
 import { useGame } from "./ContextProviderGame";
 import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
 
-export const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-);
 
 export default function MessageEngineButton() {
   console.log("Accessing MessageEngineButton component.");

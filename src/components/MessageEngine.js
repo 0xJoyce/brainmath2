@@ -5,7 +5,7 @@ import MessageEngineButton from "./ButtonMessageEngine";
 import { useGameParameter } from "./GameParameter";
 
 const message = [
-  "Ready for Round 1?",
+  "You get three rounds per daily game.  You must play all three rounds at once.  Ready for Round 1?",
   "Can you do it in fewer steps?  Let's try again.",
   "You're doing great.  Let's make this third try your best one!",
   "How did you do?",
