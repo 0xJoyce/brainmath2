@@ -5,15 +5,17 @@ import MessageEngineButton from "./ButtonMessageEngine";
 import { useGameParameter } from "./GameParameter";
 
 const message = [
-  "Ready for Round 1?",
+  "You get three rounds per daily game.  You must play all three rounds at once.  Ready for Round 1?",
   "Can you do it in fewer steps?  Let's try again.",
   "You're doing great.  Let's make this third try your best one!",
   "How did you do?",
 ];
 
 export default function MessageEngine() {
-  const { roundNum } = useGame();
+  const { roundNum, scoreArray, gameActive } = useGame();
   const { todayParameter } = useGameParameter();
+
+  console.log("Accessed MessageEngine component for roundNum = " + roundNum);
 
   if (todayParameter == null) {
     return null; // or return a loading spinner, or any placeholder component
@@ -24,11 +26,6 @@ export default function MessageEngine() {
       <div>
         <h1 className="mb-10 text-3xl">{message[roundNum]}</h1>
         <MessageEngineButton />
-        <div>
-          WinNum is {todayParameter.win_num}
-          {/* This is to test that GameParameter
-        component is fetching from Supabase successfully. */}
-        </div>
       </div>
     </div>
   );

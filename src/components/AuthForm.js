@@ -20,5 +20,3 @@ export default function AuthForm() {
     />
   );
 }
-
-//"http://localhost:3000/auth/callback"

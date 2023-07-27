@@ -16,6 +16,8 @@ export default function GameEngine() {
   const { roundNum, updateGameActive, updateRoundNum, updateScores } =
     useGame();
 
+  console.log("Accessed GameEngine component for roundNum =" + roundNum);
+
   const [currentNum, setNum] = useState(0); //Per Chat, due to async nature, The initial state used to be start_Num, but changed to 0.
   const [totalClicks, setClicks] = useState(0);
 
