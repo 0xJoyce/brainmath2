@@ -16,8 +16,14 @@ export const GameContext = createContext(initialGameContext); //Why curly braces
 
 export const useGame = () => useContext(GameContext);
 
-export default function ContextProviderGame({ children, user, gameInfoNum }) {
-  console.log("Accessed ContextProviderGame component.");
+export default function ContextProviderGame({
+  children,
+  user,
+  gameInfoNum,
+  userScoreArray,
+  todayGamePlay,
+}) {
+  console.log("ContextProviderGame component.");
 
   const supabase = createClientComponentClient();
 
@@ -42,7 +48,7 @@ export default function ContextProviderGame({ children, user, gameInfoNum }) {
               {
                 round_number: roundNum,
                 round_score: scoreArray[roundNum - 1],
-                user: user.id,
+                user: user,
                 game_id: gameInfoNum,
               },
             ]);
@@ -85,6 +91,8 @@ export default function ContextProviderGame({ children, user, gameInfoNum }) {
     scoreArray, // Get this from database instead? But this will be very slow?
     user,
     gameInfoNum,
+    userScoreArray,
+    todayGamePlay,
     updateGameActive,
     updateRoundNum,
     updateScores,
