@@ -1,4 +1,3 @@
-//This needs to be fixed later.  There is a msg box in browser that says "Error loading user data."  7/19/2023
 "use client";
 import { useCallback, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";

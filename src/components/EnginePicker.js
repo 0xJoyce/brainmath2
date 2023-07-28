@@ -24,17 +24,20 @@ export default function EnginePicker() {
 
       console.log(game_play_table);
 
-      if (game_play_table) {
-        console.log(game_play_table);
+      if (game_play_table && game_play_table.length > 0) {
+        console.log("Game data found: ", game_play_table);
         setNoMoreRounds(true);
-      } else null;
+      } else {
+        console.log("No game data found.");
+        setNoMoreRounds(false);
+      }
     };
     lookUpGame();
-  }, [supabase]);
+  }, [userUUID, gameInfoNum]);
 
   if (noMoreRounds) {
     return <ComeBackTomorrow />;
-  } else if (noMoreRounds === false) {
+  } else {
     return gameActive ? <GameEngine /> : <MessageEngine />;
   }
 }
