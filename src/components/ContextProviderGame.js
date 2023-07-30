@@ -26,6 +26,7 @@ export default function ContextProviderGame({
   console.log("ContextProviderGame component.");
 
   const supabase = createClientComponentClient();
+  if (!user) return;
   const userID = user.id;
 
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
