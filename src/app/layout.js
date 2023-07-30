@@ -17,15 +17,17 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // console.log("ROOT LAYOUT HERE!!");
+  console.log("ROOT LAYOUT HERE!!");
   const supabase = createServerComponentClient({ cookies }); //Do not understnad why need to pass in cookies.
 
   //Get user UUID.
 
+  //IMPORTANT: NEED TO HANDLE IF NO USER IS LOGGED IN, SO USER IS NULL.
+
   const {
-    data: { user: user },
+    data: { user },
   } = await supabase.auth.getUser();
-  const userID = user.id;
+  console.log(user, "HOT POTATOE!");
 
   //Get the daily game id number.
   let { data: game_parameter, error1 } = await supabase
@@ -43,15 +45,15 @@ export default async function RootLayout({ children }) {
 
   //Get the logged-in user's score info for today's game.
 
-  let { data: game_play_table, error2 } = await supabase
-    .from("game_play_table")
-    .select("*")
-    .eq("user", userID)
-    .eq("game_id", gameID);
+  // let { data: game_play_table, error2 } = await supabase
+  //   .from("game_play_table")
+  //   .select("*")
+  //   .eq("user", userID)
+  //   .eq("game_id", gameID);
 
-  if (error2) {
-    console.error("Error2 is: ", error2);
-  }
+  // if (error2) {
+  //   console.error("Error2 is: ", error2);
+  // }
 
   // console.log("The value of game_play_table is: ", game_play_table);
 
@@ -60,7 +62,7 @@ export default async function RootLayout({ children }) {
     .select("*")
     .eq("game_id", gameID);
 
-  if (error2) {
+  if (error3) {
     console.error("Error3 is: ", error3);
   }
 
@@ -71,9 +73,9 @@ export default async function RootLayout({ children }) {
       <body className={inter.className}>
         <main className="text-center w-screen p-0 m-0 bg-yellow-50 text-black font-sans">
           <ContextProviderGame
-            user={userID}
+            user={user}
             gameInfoNum={gameID}
-            userScoreArray={game_play_table}
+            // userScoreArray={game_play_table}
             todayGamePlay={todayGamePlay}
           >
             <Navbar />

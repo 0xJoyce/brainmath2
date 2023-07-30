@@ -26,6 +26,7 @@ export default function ContextProviderGame({
   console.log("ContextProviderGame component.");
 
   const supabase = createClientComponentClient();
+  const userID = user.id;
 
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
@@ -48,7 +49,7 @@ export default function ContextProviderGame({
               {
                 round_number: roundNum,
                 round_score: scoreArray[roundNum - 1],
-                user: user,
+                user: userID,
                 game_id: gameInfoNum,
               },
             ]);
