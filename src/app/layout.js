@@ -16,6 +16,8 @@ export const metadata = {
     "A math puzzle that is like golf.  Solve it with the fewest amount of steps.",
 };
 
+export const dynamic = "force-dynamic";
+
 export default async function RootLayout({ children }) {
   console.log("ROOT LAYOUT HERE!!");
   const supabase = createServerComponentClient({ cookies }); //Do not understnad why need to pass in cookies.
