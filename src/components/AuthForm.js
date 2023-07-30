@@ -16,7 +16,7 @@ export default function AuthForm() {
       theme="dark"
       showLinks={false}
       providers={["google"]}
-      redirectTo="https://brainmath2-pe2a0itm5-0xjoyce.vercel.app/auth/callback"
+      redirectTo={`${process.env.VERCEL_URL}/auth/callback`}
     />
   );
 }
