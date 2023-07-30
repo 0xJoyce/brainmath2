@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import ContextProviderGame from "@/components/ContextProviderGame";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { createServerSupabaseClient } from "../../lib/hack";
 
 const inter = Inter({ subsets: ["latin"] });
 let date = new Date().toLocaleDateString();
@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 
 export default async function RootLayout({ children }) {
   console.log("ROOT LAYOUT HERE!!");
-  const supabase = createServerComponentClient({ cookies }); //Do not understnad why need to pass in cookies.
+  const supabase = createServerSupabaseClient();
 
   //Get user UUID.
 

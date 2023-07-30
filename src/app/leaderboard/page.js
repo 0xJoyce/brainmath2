@@ -1,9 +1,9 @@
 import LeaderboardComponent from "@/components/Leaderboard";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { createServerSupabaseClient } from "../../../lib/hack";
 
 export default async function LeaderboardPage() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerSupabaseClient();
   let date = new Date().toLocaleDateString();
 
   //Get user UUID.

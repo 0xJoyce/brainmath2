@@ -1,9 +1,9 @@
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import AccountForm from "../../components/AccountForm";
+import { createServerSupabaseClient } from "../../../lib/hack";
 
 export default async function Account() {
-  const supabase = createServerComponentClient({ cookies });
+  const supabase = createServerSupabaseClient();
 
   const {
     data: { session },
