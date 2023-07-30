@@ -16,10 +16,17 @@ export const GameContext = createContext(initialGameContext); //Why curly braces
 
 export const useGame = () => useContext(GameContext);
 
-export default function ContextProviderGame({ children, user, gameInfoNum }) {
-  console.log("Accessed ContextProviderGame component.");
+export default function ContextProviderGame({
+  children,
+  user,
+  gameInfoNum,
+  userScoreArray,
+  todayGamePlay,
+}) {
+  console.log("ContextProviderGame component.");
 
   const supabase = createClientComponentClient();
+  const userID = user.id;
 
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
@@ -42,7 +49,7 @@ export default function ContextProviderGame({ children, user, gameInfoNum }) {
               {
                 round_number: roundNum,
                 round_score: scoreArray[roundNum - 1],
-                user: user.id,
+                user: userID,
                 game_id: gameInfoNum,
               },
             ]);
@@ -85,6 +92,8 @@ export default function ContextProviderGame({ children, user, gameInfoNum }) {
     scoreArray, // Get this from database instead? But this will be very slow?
     user,
     gameInfoNum,
+    userScoreArray,
+    todayGamePlay,
     updateGameActive,
     updateRoundNum,
     updateScores,
