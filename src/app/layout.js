@@ -5,7 +5,7 @@ import { cookies } from "next/headers";
 import ContextProviderGame from "@/components/ContextProviderGame";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { createServerSupabaseClient } from "../../lib/hack";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
 let date = new Date().toLocaleDateString();
@@ -16,12 +16,9 @@ export const metadata = {
     "A math puzzle that is like golf.  Solve it with the fewest amount of steps.",
 };
 
-export const dynamic = "force-dynamic";
-
 export default async function RootLayout({ children }) {
   console.log("ROOT LAYOUT HERE!!");
-  const supabase = createServerSupabaseClient();
-
+  const supabase = createServerComponentClient({ cookies }); //Do not understnad why need to pass in cookies
   //Get user UUID.
 
   //IMPORTANT: NEED TO HANDLE IF NO USER IS LOGGED IN, SO USER IS NULL.
@@ -74,6 +71,7 @@ export default async function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <main className="text-center w-screen p-0 m-0 bg-yellow-50 text-black font-sans">
+          {/* Move to /game/page.js */}
           <ContextProviderGame
             user={user}
             gameInfoNum={gameID}

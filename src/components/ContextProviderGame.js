@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useContext, createContext, useEffect, useState } from "react";
 
 const initialGameContext = {
+  user: null,
   gameActive: false,
   roundNum: 0,
   scoreArray: [],
@@ -32,6 +33,7 @@ export default function ContextProviderGame({
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
   const [scoreArray, setScoreArray] = useState(initialGameContext.scoreArray); // This goes away now that we use database?  Or should this be stored locally and then I push each item to Supabase?
 
+  //Avoid useEffect if possible.
   useEffect(() => {
     console.log(
       "Accessing useEffect within ContextProviderGame component.  About to access insertData async function."
