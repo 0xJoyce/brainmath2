@@ -44,7 +44,7 @@ export default function MessageEngineButton() {
     updateGameActive();
   }
 
-  //turn this into a button instead.
+  //Turn this into a button instead.
   return (
     <div>
       {roundNum < 3 ? (

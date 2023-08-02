@@ -16,8 +16,8 @@ export default function AuthForm() {
       theme="dark"
       showLinks={false}
       providers={["google"]}
-      redirectTo={"https://brainmath2-91daepu1d-0xjoyce.vercel.app/auth/login"}
-      // redirectTo={`${process.env.VERCEL_URL}/auth/callback`} // This still works on local host. why?
+      // redirectTo={"https://brainmath2-91daepu1d-0xjoyce.vercel.app/auth/login"}
+      redirectTo={`${process.env.VERCEL_URL}/auth/callback`} // This still works on local host. why?
     />
   );
 }
