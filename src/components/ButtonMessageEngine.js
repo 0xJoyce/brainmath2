@@ -2,7 +2,6 @@
 import { useGame } from "./ContextProviderGame";
 import Link from "next/link";
 
-
 export default function MessageEngineButton() {
   console.log("Accessing MessageEngineButton component.");
   const { updateGameActive, roundNum, scoreArray } = useGame();
@@ -45,6 +44,7 @@ export default function MessageEngineButton() {
     updateGameActive();
   }
 
+  //Turn this into a button instead.
   return (
     <div>
       {roundNum < 3 ? (
@@ -63,7 +63,6 @@ export default function MessageEngineButton() {
           className="rounded-full bg-lime-300 px-3 py-3.5 text-sm font-semibold
         text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300
         hover:bg-gray-50"
-          onClick={handleClick}
         >
           {buttonText[roundNum]}
         </Link>

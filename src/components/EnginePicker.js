@@ -12,8 +12,10 @@ export default function EnginePicker() {
   const supabase = createClientComponentClient();
   const [noMoreRounds, setNoMoreRounds] = useState(false);
   const { gameActive, user, gameInfoNum } = useGame();
-  const userUUID = user.id;
+  console.log(user);
+  const userUUID = user?.id; //Need to handle scenario if no one is logged in and it is null.
 
+  //Get this data on the server side and pass it down to the component as props.
   useEffect(() => {
     const lookUpGame = async () => {
       let { data: game_play_table, error } = await supabase
@@ -24,17 +26,21 @@ export default function EnginePicker() {
 
       console.log(game_play_table);
 
-      if (game_play_table) {
-        console.log(game_play_table);
+      if (game_play_table && game_play_table.length > 0) {
+        console.log("Game data found: ", game_play_table);
         setNoMoreRounds(true);
-      } else null;
+      } else {
+        console.log("No game data found.");
+        setNoMoreRounds(false);
+      }
     };
     lookUpGame();
-  }, [supabase]);
+  }, [userUUID, gameInfoNum]);
 
   if (noMoreRounds) {
     return <ComeBackTomorrow />;
-  } else if (noMoreRounds === false) {
-    return gameActive ? <GameEngine /> : <MessageEngine />;
+  } else if (gameActive) {
+    return <GameEngine />;
   }
+  return <MessageEngine />;
 }

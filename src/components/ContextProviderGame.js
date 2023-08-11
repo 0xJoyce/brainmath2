@@ -4,6 +4,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useContext, createContext, useEffect, useState } from "react";
 
 const initialGameContext = {
+  user: null,
   gameActive: false,
   roundNum: 0,
   scoreArray: [],
@@ -16,15 +17,23 @@ export const GameContext = createContext(initialGameContext); //Why curly braces
 
 export const useGame = () => useContext(GameContext);
 
-export default function ContextProviderGame({ children, user, gameInfoNum }) {
-  console.log("Accessed ContextProviderGame component.");
+export default function ContextProviderGame({
+  children,
+  user,
+  gameInfoNum,
+  userScoreArray,
+  todayGamePlay,
+}) {
+  console.log("ContextProviderGame component.");
 
   const supabase = createClientComponentClient();
+  const userID = user?.id;
 
   const [gameActive, setGameActive] = useState(initialGameContext.gameActive);
   const [roundNum, setRoundNum] = useState(initialGameContext.roundNum); //This needs to be 0-3 to correspond to the MessageEngine array.
   const [scoreArray, setScoreArray] = useState(initialGameContext.scoreArray); // This goes away now that we use database?  Or should this be stored locally and then I push each item to Supabase?
 
+  //Avoid useEffect if possible.
   useEffect(() => {
     console.log(
       "Accessing useEffect within ContextProviderGame component.  About to access insertData async function."
@@ -42,7 +51,7 @@ export default function ContextProviderGame({ children, user, gameInfoNum }) {
               {
                 round_number: roundNum,
                 round_score: scoreArray[roundNum - 1],
-                user: user.id,
+                user: userID,
                 game_id: gameInfoNum,
               },
             ]);
@@ -85,6 +94,8 @@ export default function ContextProviderGame({ children, user, gameInfoNum }) {
     scoreArray, // Get this from database instead? But this will be very slow?
     user,
     gameInfoNum,
+    userScoreArray,
+    todayGamePlay,
     updateGameActive,
     updateRoundNum,
     updateScores,

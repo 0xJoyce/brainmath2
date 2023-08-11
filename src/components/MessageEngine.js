@@ -24,7 +24,9 @@ export default function MessageEngine() {
   return (
     <div className="mx-auto max-w-7xl sm:px-6 lg:px-8 h-screen overflow-auto flex items-center justify-center">
       <div>
-        <h1 className="mb-10 text-3xl">{message[roundNum]}</h1>
+        <h1 className="w-1/2 font-serif mb-10 text-3xl w-90 justify-center">
+          {message[roundNum]}
+        </h1>
         <MessageEngineButton />
       </div>
     </div>

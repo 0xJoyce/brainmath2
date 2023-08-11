@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useGame } from "./ContextProviderGame";
 
 export default function ScoreCards() {
@@ -26,6 +27,12 @@ export default function ScoreCards() {
             </div>
           </dl>
         ))}
+        <Link
+          href="/leaderboard"
+          className="inline-flex items-center border-b-2 border-transparent px-1 pt-1 text-sm font-medium text-gray-500 hover:border-gray-300 hover:text-gray-700"
+        >
+          Go to Leaderboard
+        </Link>
       </div>
     </div>
   );
